@@ -1,4 +1,5 @@
 import { Button, Input, Loading, Textarea } from "@nextui-org/react";
+import { useRouter } from "next/router";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { BsPerson, BsRulers } from "react-icons/bs";
@@ -15,9 +16,12 @@ type TForm = {
   measurements: number;
   measure_units: string;
   price: number;
+  files: File[];
+  is_rented: boolean;
 };
 
 const defaultValues: TForm = {
+  files: [],
   address: "",
   description: "",
   capacity: 1,
@@ -26,6 +30,7 @@ const defaultValues: TForm = {
   no_of_bathrooms: 1,
   no_of_rooms: 1,
   price: 1,
+  is_rented: false,
 };
 
 const AddPlacePage: FC = () => {
@@ -33,16 +38,22 @@ const AddPlacePage: FC = () => {
     handleSubmit,
     register,
     formState: { errors },
+    setValue,
   } = useForm<TForm>({ defaultValues });
   const { mutateAsync, isLoading } = useCreatePlace();
+  const router = useRouter();
 
   const handleCreatePlace = async (data: TForm) => {
     try {
-      console.log("hello");
       await mutateAsync(data);
+      router.push("/");
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleSelectFiles = (files: File[]) => {
+    setValue("files", files);
   };
 
   return (
@@ -50,7 +61,7 @@ const AddPlacePage: FC = () => {
       onSubmit={handleSubmit(handleCreatePlace)}
       className="flex flex-col items-center py-10 gap-5 px-5"
     >
-      <FilePicker />
+      <FilePicker onSelectFiles={handleSelectFiles} />
       <Textarea
         css={{ minWidth: "60%" }}
         {...register("address", { required: true })}

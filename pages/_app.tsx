@@ -20,7 +20,7 @@ const darkTheme = createTheme({
       tertiary: "#334756",
       clear: "#fff",
       popper: "#FF4C29",
-      dark: "#000",
+      dark: "#01263f",
     },
     space: {},
     fonts: {},
