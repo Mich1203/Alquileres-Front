@@ -11,6 +11,7 @@ import {
 } from "@nextui-org/react";
 import { NextPage } from "next";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import AuthWrapper from "../../components/common/AuthWrapper";
@@ -198,6 +199,7 @@ const RegisterPage: NextPage = () => {
                 </Col>
               </Row>
             </Container>
+            <Link href="/auth/login">No tienes una cuenta?</Link>
             <Spacer y={1} />
             <Button
               css={{ backgroundColor: "$popper" }}

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthWrapper from "../../components/common/AuthWrapper";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 type TForm = {
   email: "";
@@ -62,6 +63,7 @@ function LoginPage() {
               labelPlaceholder="Password"
               {...register("password")}
             />
+            <Link href="/auth/register">No tienes una cuenta?</Link>
             <Button
               css={{ backgroundColor: "$popper" }}
               type="submit"
